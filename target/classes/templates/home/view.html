@@ -1,0 +1,62 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="home/header :: head">
+</head>
+<body>
+<div th:replace="home/header :: navbar"></div>
+<div id="container">
+    <div class="container mt-5 pb-5">
+        <div class="row">
+
+            <div class="col-md-5">
+
+                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img class="d-block w-100 rounded" th:src="${product.getImageURL()}" alt="First slide">
+                        </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-7">
+                <span><u th:text="${product.getBrand()}"></u></span>
+                <h2 th:text="${product.getTitle()}" style="margin-top: 20px"></h2>
+                <p>Categorie <span th:text="${product.category?.title}" class="badge badge-dark"></span></p>
+                <p style="color: #54C0A1">În stoc</p>
+
+                <div class="row ml-1">
+                    <h6 class="mr-5"><span th:text="${product.getPrice()}"></span>,00 RON</h6>
+
+                    <br>
+                    <table class="table">
+                        <tbody>
+                        <tr><td><strong>Denumire produs:</strong></td><td th:text="${product.getTitle()}"></td></tr>
+                        <tr><td><strong>Brand:</strong></td><td th:text="${product.getBrand()}"></td></tr>
+                        <tr><td><strong>Data lansarii:</strong></td><td th:text="${product.getYear()}"></td></tr>
+                        <tr><td><strong>Cantitate:</strong></td><td><span th:text="${product.getVolume()}"></span></td></tr>
+                        <tr><td><strong>Note de varf:</strong></td><td th:text="${product.getFragranceTopNotes()}"></td></tr>
+                        <tr><td><strong>Descriere:</strong></td><td th:text="${product.getDescription()}"></td></tr>
+                        </tbody>
+                    </table>
+                    <form action="/cart/add" method="post">
+                        <input type="hidden" name="productId" th:value="${product.getId()}">
+                        <button type="submit"class="btn btn-dark mx-3"
+                                >Adauga in cos</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <footer th:insert="~{home/footer :: footer}"></footer>
+</body>
+</html>

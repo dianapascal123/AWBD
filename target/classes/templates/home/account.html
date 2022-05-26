@@ -1,0 +1,58 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="home/header :: head">
+</head>
+<body>
+<div th:replace="home/header :: navbar"></div>
+<div id="container">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <h1>Adresa</h1>
+            </div>
+            <div class="col-lg-3"></div>
+        </div>
+        <form th:object="${address}" action="/address" method="post" enctype="multipart/form-data">
+            <input type="hidden" th:field="*{id}"/>
+            <input type="hidden" th:field="*{user}"/>
+            <div class="row">
+                <div class="col-lg-3"></div>
+                <div class="col-lg-6">
+                    <div class="form-group row">
+                        <label th:for="city">*City</label>
+                        <input type="text" class="form-control" th:field="*{city}"/>
+                        <p th:if="${#fields.hasErrors('city')}" th:errors="*{city}" style="color: red">Error</p>
+                    </div>
+                    <div class="form-group row">
+                        <label>*County</label>
+                        <input type="text" class="form-control" th:field="*{county}"/>
+                        <p th:if="${#fields.hasErrors('county')}" th:errors="*{county}" style="color: red">Error</p>
+                    </div>
+                    <div class="form-group row">
+                        <label>*Postal code</label>
+                        <input type="text" class="form-control" th:field="*{postalCode}"/>
+                        <p th:if="${#fields.hasErrors('postalCode')}" th:errors="*{postalCode}" style="color: red">Error</p>
+                    </div>
+                    <div class="form-group row">
+                        <label>*Street</label>
+                        <input type="text" class="form-control" th:field="*{street}"/>
+                        <p th:if="${#fields.hasErrors('street')}" th:errors="*{street}" style="color: red">Error</p>
+                    </div>
+                </div>
+                <div class="col-lg-3"></div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3"></div>
+                <div class="col-lg-6">
+                    <button class="btn btn-dark btn-lg btn-success px-5">Salveaza</button>
+                </div>
+                <div class="col-lg-3"></div>
+            </div>
+        </form>
+    </div>
+</div>
+<br><br>
+<footer th:insert="~{home/footer :: footer}"></footer>
+</body>
+</html>

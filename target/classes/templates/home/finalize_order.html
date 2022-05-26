@@ -1,0 +1,15 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="home/header :: head">
+</head>
+<body>
+<div th:replace="home/header :: navbar"></div>
+<div id="container">
+    <div class="container text-center mt-5">
+        <h2>Comanda a fost plasată cu succes!</h2>
+    </div>
+</div>
+<br><br>
+<footer th:insert="~{home/footer :: footer}"></footer>
+</body>
+</html>

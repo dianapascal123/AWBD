@@ -1,0 +1,77 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+<head th:replace="home/header :: head">
+<body>
+<div th:replace="home/header :: navbar"></div>
+<div id="container">
+    <div class="container mt-5 pb-5">
+
+        <p class="h4 mb-4 text-center">Coșul de cumparaturi</p>
+
+        <div class="text-center" th:if="${cartProducts.size() == 0}">
+            <p>Cosul este gol</p>
+        </div>
+
+        <div th:if="${cartProducts.size() > 0}">
+
+            <div class="card mb-3 mx-auto" style="max-width: 940px;" th:each="cartProduct : ${cartProducts}" >
+                <div class="row no-gutters">
+
+                    <div class="col-3 p-2">
+                        <img th:src="${cartProduct.value.getImageURL()}" class="rounded mx-auto w-50">
+                    </div>
+
+                    <div class="col-7">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${cartProduct.value.getBrand() + ' ' + cartProduct.value.getTitle()}"></h5>
+                            <p class="card-text"><span th:text="${cartProduct.value.getVolume()}"></span></p>
+                        </div>
+                    </div>
+
+                    <div class="col-2">
+                        <div class="card-body">
+                            <h5 class="card-title"><span th:text="${cartProduct.value.getPrice()}"></span>RON</h5>
+
+                            <form class="d-inline" action="/cart/removeItem" method="post">
+                                <button class="btn btn-danger">Șterge</button>
+                                <input type="hidden" name="productId" th:value="${cartProduct.value.getId()}">
+                                <div class="from-group mb-2">
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="my-3"/>
+
+            <div class="row">
+                <div class="col-9 ">
+                    <p class="h5 text-right">Total: <span th:text="${#aggregates.sum(cartProducts.![value.price])}"></span> RON</p>
+                </div>
+
+                <div class="col-3">
+                    <form action="/order" method="POST" class="ml-3">
+                        <div class="form-row">
+                            <div class="col-6">
+                                <button class="btn btn-success btn-dark" >Comandă</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<footer th:insert="~{home/footer :: footer}"></footer>
+</body>
+</html>
